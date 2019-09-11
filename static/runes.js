@@ -138,4 +138,41 @@ const compileRunes = () => {
   console.log(`Saved rune data in ${outDir}.`)
 }
 
-compileRunes()
+// compileRunes()
+
+
+const addRuneLink = () => {
+  // go through each file in the folder
+
+  fs.readdir(runeDir, (err, files) => {
+  files.forEach(file => {
+      if(file !== '_index.md'){
+        var fileName = `${runeDir}${file}`
+        // console.log(fileName)
+        var lines = getFile(fileName).split('\n')
+
+        lines = lines.map(function(line) {
+          // get header lines that don't already have the {#wutcol} link syntax
+          if(line.includes("###") && !line.includes("####") && !line.includes("Desugaring") && !line.includes("{")){
+            // parse the header string to get the name of the rune
+            var name = line
+                          .replace(/\#/g,'')
+                          .replace(/\"/g,'')
+                          .split(' ')[2]
+            // add the link to the rune header
+            line = line + " " + `{#${name}}`
+          }
+          return line
+
+        })
+        // lines =  lines.join('\n')
+        writeData(lines, runeDir+file)
+      }
+
+
+
+    });
+  });
+}
+
+addRuneLink()
