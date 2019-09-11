@@ -1,8 +1,8 @@
 const fs = require('fs')
 
-const runeDir = 'content/docs/reference/hoon-expressions/rune/'
+const runeDir = '../content/docs/reference/hoon-expressions/rune/'
 
-const outDir = 'content/docs/reference/hoon-expressions/rune/runes.json'
+const outDir = 'runes.json'
 
 const rune = {
   name: '',
