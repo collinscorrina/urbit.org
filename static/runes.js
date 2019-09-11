@@ -138,9 +138,4 @@ const compileRunes = () => {
   console.log(`Saved rune data in ${outDir}.`)
 }
 
-const editRuneFiles = () => {
-  // wrap all of the lines in HTML tags for runes? and then an a element for link?
-  // turn all ### into h3 elements??
-}
-
 compileRunes()
