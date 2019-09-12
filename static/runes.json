@@ -109,7 +109,7 @@
     "symbol": "=|",
     "usage": "Subject Modification",
     "link": "../content/docs/reference/hoon-expressions/rune/tis.md#tisbar",
-    "desc": ""
+    "desc": "`[%tsbr p=spec q=hoon]`: combine a default type value with the subject."
   },
   {
     "name": "tiscol",
@@ -158,7 +158,7 @@
     "symbol": "=+",
     "usage": "Subject Modification",
     "link": "../content/docs/reference/hoon-expressions/rune/tis.md#tislus",
-    "desc": ""
+    "desc": "`[%tsls p=hoon q=hoon]`: combine a new noun with the subject."
   },
   {
     "name": "tismic",
@@ -179,7 +179,7 @@
     "symbol": "=~",
     "usage": "Subject Modification",
     "link": "../content/docs/reference/hoon-expressions/rune/tis.md#tissig",
-    "desc": ""
+    "desc": "`[%tssg p=(list hoon)]`: compose many expressions."
   },
   {
     "name": "tistar",
@@ -249,7 +249,7 @@
     "symbol": "?<",
     "usage": "Conditionals",
     "link": "../content/docs/reference/hoon-expressions/rune/wut.md#wutled",
-    "desc": ""
+    "desc": "`[%wtgl p=hoon q=hoon]`: negative assertion."
   },
   {
     "name": "wutlus",
@@ -410,7 +410,7 @@
     "symbol": "+*",
     "usage": "Arms",
     "link": "../content/docs/reference/hoon-expressions/rune/lus.md#lustar",
-    "desc": ""
+    "desc": "Produce a type constructor arm."
   },
   {
     "name": "col",
@@ -452,7 +452,7 @@
     "symbol": ":+",
     "usage": "Cells",
     "link": "../content/docs/reference/hoon-expressions/rune/col.md#collus",
-    "desc": ""
+    "desc": "`[%clls p=hoon q=hoon r=hoon]`: construct a triple (3-tuple)."
   },
   {
     "name": "colsig",
@@ -760,7 +760,7 @@
     "symbol": "~|",
     "usage": "Hints",
     "link": "../content/docs/reference/hoon-expressions/rune/sig.md#sigbar",
-    "desc": ""
+    "desc": "`[%sgbr p=hoon q=hoon]`: tracing printf."
   },
   {
     "name": "sigbuc",
@@ -788,7 +788,8 @@
     "symbol": "~<",
     "usage": "Hints",
     "link": "../content/docs/reference/hoon-expressions/rune/sig.md#sigled",
-    "desc": ""
+    "desc": "`[%sgld p=$@(term [p=term q=hoon]) q=hoon]`: raw hint, applied to
+    product."
   },
   {
     "name": "siglus",
