@@ -47,8 +47,8 @@ const parseLine = (line) => {
 
   if(line.length > 2)
     return {
-      symbol: line[0][0],
       name: line[0][1] === "==" ? "terminators" : line[0][1],
+      symbol: line[0][0],
       usage: line[1],
       link: line[2]
     }
@@ -83,7 +83,7 @@ const getParentRunes = () => {
       data.desc = line
       return data
     }
-  })
+  }).filter(function(w){ return w !== undefined})
   return lines
 }
 
@@ -111,8 +111,8 @@ const parseChildRune = (usage, parentRune) => {
         const link = `${runeDir}${parentRune}.md#${name}`
         return {
           name: name,
-          usage: usage,
           symbol: symbol,
+          usage: usage,
           link: link,
           desc: desc
         }
@@ -125,54 +125,25 @@ const parseChildRune = (usage, parentRune) => {
 const compileRunes = () => {
   var parentRunes = getParentRunes()
 
-  // for every parent rune, get the child runes from dir/name-of-parent-rune.md
-  parentRunes = Object.values(parentRunes).map(function(rune){
-    if(rune !== undefined){
-      // console.log(rune.name)
-      rune.childRunes = parseChildRune(rune.usage, rune.name)
-      return rune
-    }
-  }).filter(function(w){ return w !== undefined })
+  // merge the parent and child runes into a single array
+  var merge = []
 
-  writeData(parentRunes, outDir)
+  // for every parent rune, get the child runes from dir/name-of-parent-rune.md
+  Object.values(parentRunes).map(function(rune){
+    if(rune !== undefined){
+      var childRunes = parseChildRune(rune.usage, rune.name)
+
+      // add the parent rune before the child runes
+      childRunes.unshift(rune)
+
+      // merge this iteration of childRunes with the final array of data
+      merge = merge.concat(childRunes)
+    }
+  }).filter(function(w){ return w !== undefined})
+
+
+  writeData(merge, outDir)
   console.log(`Saved rune data in ${outDir}.`)
 }
 
-// compileRunes()
-
-
-const addRuneLink = () => {
-  // go through each file in the folder
-
-  fs.readdir(runeDir, (err, files) => {
-  files.forEach(file => {
-      if(file !== '_index.md'){
-        var fileName = `${runeDir}${file}`
-        // console.log(fileName)
-        var lines = getFile(fileName).split('\n')
-
-        lines = lines.map(function(line) {
-          // get header lines that don't already have the {#wutcol} link syntax
-          if(line.includes("###") && !line.includes("####") && !line.includes("Desugaring") && !line.includes("{")){
-            // parse the header string to get the name of the rune
-            var name = line
-                          .replace(/\#/g,'')
-                          .replace(/\"/g,'')
-                          .split(' ')[2]
-            // add the link to the rune header
-            line = line + " " + `{#${name}}`
-          }
-          return line
-
-        })
-        // lines =  lines.join('\n')
-        writeData(lines, runeDir+file)
-      }
-
-
-
-    });
-  });
-}
-
-addRuneLink()
+compileRunes()
